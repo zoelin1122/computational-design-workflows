@@ -4,7 +4,9 @@ body {
 
 
 .title {
-font-style: oblique;    
-color: rgb(255, 255, 255);
-}
-
+    font-style: oblique;    
+    color: rgb(255, 255, 255);
+    font-size: 30px;
+    text-align:center;
+    font-style: normal;
+  }
