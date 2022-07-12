@@ -3,8 +3,16 @@ body {
 }
 
 
-.title {
-    font-style: oblique, white;    
+.log {
+    max-width: 500px;
+    padding: 30px;
+    border: 1px solid black;
+    margin-bottom: 100px;
+    background: white;
+  }
+
+  .title {
     font-size: 30px;
     text-align:center;
-}
+    font-style: normal;
+  }
