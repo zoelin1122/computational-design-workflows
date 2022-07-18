@@ -6,11 +6,15 @@ const Marry = {firstName:"Marry", lastName:"Joe", age:80, height:5.6};
 
 function whatToDo (person){
     if (person.age < 8) {
-        console.log("Check out the Marry-Go-Around!");
+        console.log(person.firstName + ", check out the Marry-Go-Around!");
     } else if (person.age < 65 && person.height < 4.5){
-        console.log("Check out the rollercoaster!");
+        console.log(person.firstName + ", check out the rollercoaster!");
     } else {
-        console.log("Check out the lazy-river!");
+        console.log(person.firstName + ", check out the lazy-river!");
     }
 }
 
+whatToDo (John)
+whatToDo (Zoe)
+whatToDo (Seth)
+whatToDo (Marry)
