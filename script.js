@@ -14,7 +14,7 @@ function whatToDo (person){
     }
 }
 
-whatToDo (John)
-whatToDo (Zoe)
-whatToDo (Seth)
-whatToDo (Marry)
+whatToDo (John);
+whatToDo (Zoe);
+whatToDo (Seth);
+whatToDo (Marry);
