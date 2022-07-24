@@ -1,46 +1,46 @@
 // Structure
 //----------------------------
 const form = document.querySelector("form");
+const locationInput = document.querySelector(".location");
 const nameInput = document.querySelector(".name");
-const emailInput = document.querySelector(".email");
 var button = document.querySelector("button");
 
 
 //OBJECT SETUP
 //----------------------------
-const contact = {
-	"contactList": []
+const bathrooms = {
+	"bathroomList": []
 }
 
 // Events
 //----------------------------
-form.addEventListener("submit", addNewContact);
+form.addEventListener("submit", addNewBathroom);
 
 
 // Event Handlers
 //----------------------------
-const addNewContact = (e) => {
+const addNewBathroom = (e) => {
   e.preventDefault();
   
   // variable for values entered in the form
+  const newLocation = locationInput.value;
   const newName = nameInput.value;
-  const newEmail = emailInput.value;
   
   // store in a JSON object
-  contactObject = {
+  bathroomObject = {
+		location: newLocation,
 		name: newName,
-		email: newEmail,
 		completed: false,
 	}
   
   // pass object into display function
-	// displayContact(contactObject);
+	// displayContact(bathroomObject);
   
   //add object to array
-	contact.contactList.push(contactObject);
-  console.log(contact)
+	bathrooms.bathroomList.push(bathroomObject);
+    console.log(bathrooms)
   //store in local storage
-	// localStorage.setItem("contact", JSON.stringify(contact));
+	// localStorage.setItem("bathrooms", JSON.stringify(bathrooms));
 
 	//clear form
 	form.reset();
