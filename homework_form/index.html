@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <title>Homework Form</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -14,7 +15,7 @@
           <input class="location" type="text" placeholder="Where is this loo?" />
 
           <label for="name">Name:</label><br>
-          <input class="name" type="email" placeholder="Provide a descriptive name" />
+          <input class="name" type="text" placeholder="Provide a descriptive name" />
 
           <label for="cleanliness">Cleanliness:</label><br>
           <div class="rate">
@@ -33,12 +34,13 @@
         <!--     Right -->
         <section class="right">
           <label for="description">Dirty Details:</label><br>
-          <textarea class="description" placeholder="Description" id="" cols="30" rows="10"></textarea>
+          <textarea class="description" placeholder="'psst… did the bathroom door require a code?'" id="description" cols="30" rows="10"></textarea>
         </section>      
       </main>
   
       <button type="submit">Submit</button>
     </form>
+    <div class="display"></div>
     <script src="main.js"></script>
   </body>
 </html>
