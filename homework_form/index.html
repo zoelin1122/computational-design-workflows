@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Homework Form</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <form action="">
+      <h2>Bathroom submission form</h2>
+      <main class="container">
+        <!--     Left -->
+        <section class="left">
+          <label for="location">Location:</label><br>
+          <input class="location" type="text" placeholder="Where is this loo?" />
+
+          <label for="name">Name:</label><br>
+          <input class="name" type="email" placeholder="Provide a descriptive name" />
+
+          <label for="cleanliness">Cleanliness:</label><br>
+          <div class="rate">
+            <input type="radio" id="star5" name="rate" value="5" />
+            <label for="star5" title="text">5 stars</label>
+            <input type="radio" id="star4" name="rate" value="4" />
+            <label for="star4" title="text">4 stars</label>
+            <input type="radio" id="star3" name="rate" value="3" />
+            <label for="star3" title="text">3 stars</label>
+            <input type="radio" id="star2" name="rate" value="2" />
+            <label for="star2" title="text">2 stars</label>
+            <input type="radio" id="star1" name="rate" value="1" />
+            <label for="star1" title="text">1 star</label>
+          </div>
+        </section>
+        <!--     Right -->
+        <section class="right">
+          <label for="description">Dirty Details:</label><br>
+          <textarea class="description" placeholder="Description" id="" cols="30" rows="10"></textarea>
+        </section>      
+      </main>
+  
+      <button type="submit">Submit</button>
+    </form>
+    <script src="main.js"></script>
+  </body>
+</html>
