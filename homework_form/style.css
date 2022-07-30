@@ -15,6 +15,24 @@ h2 {
   text-align: center;
 }
 
+.header {
+    align-content: center;
+    background-color: #964B00;
+    width: 100%;
+    padding: 3em 5em;
+    margin-bottom: 3em;
+}
+
+h1 {
+    color: antiquewhite;
+    align-content: center;
+}
+
+.subheading {
+    color: antiquewhite;
+    align-content: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -41,6 +59,16 @@ form {
 .left {
   margin-right: 10px;
 }
+
+input[type="checkbox"] {
+    border: none;
+    line-height: 30px;
+    margin: 10px 1em 20px;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+
 
 input[type="text"],
 input[type="subject"],
@@ -77,10 +105,10 @@ button {
 }
 
 table {
-    margin: 5%;
+    margin: 3em 10%;
     border: 1px solid;
     border-collapse: collapse;
-    width: 90%;
+    width: 80%;
 }
 
 td {
