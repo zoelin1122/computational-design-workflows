@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <div class="header">
+        <h1>Bathroom Locator</h1> 
+        <p class="subheading">When you've got to do(o) what you've got to do</p>
+    </div>  
     <form action="">
       <h2>Bathroom submission form</h2>
       <main class="container">
@@ -16,6 +20,9 @@
 
           <label for="name">Name:</label><br>
           <input class="name" type="text" placeholder="Provide a descriptive name" />
+
+          <input class = "handicap" type="checkbox" id="handicap" name="scales" ><label for="handicap">Handicap Accessible?</label>
+          <br>
 
           <label for="cleanliness">Cleanliness:</label><br>
           <div class="rate">
@@ -30,6 +37,7 @@
             <input type="radio" id="star1" name="rate" value="1" />
             <label for="star1" title="text">1 star</label>
           </div>
+ </div>
         </section>
         <!--     Right -->
         <section class="right">
@@ -40,6 +48,7 @@
   
       <button type="submit">Submit</button>
     </form>
+    <div class="validation-space"></div>
     <div class="display"></div>
     <script src="main.js"></script>
   </body>
