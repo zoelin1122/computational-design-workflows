@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Homework Form</title>
+    <title>NYC Bathroom Locator</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
-    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA0G2TMDOP3pgu_h0xEdNs9iCvvkqV34fs&libraries=places"></script>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-    <script type="module" src="./index.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="./style.css" /> -->
+    <!-- <script type="module" src="./index.js"></script> -->
   </head>
   <body>
     <div class="header">
         <h1>Bathroom Locator</h1> 
         <p class="subheading">When you've got to do(o) what you've got to do</p>
     </div> 
+    <div class="tab">
+      <button class="tablinks" onclick="openView(event, 'MapContainer')" id="defaultOpen">Map View</button>
+      <button class="tablinks" onclick="openView(event, 'List')">List View</button>
+    </div>
+    <script>
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+    </script>
+    <div id="MapContainer" class="tabcontent">
     <div id='map'></div>
     <script>
     // TO MAKE THE MAP APPEAR YOU MUST
@@ -74,7 +83,10 @@
       <button type="submit">Submit</button>
       <div class="validation-space"></div>
     </form>
+  </div>
+  <div id="List" class="tabcontent">
     <div class="display"></div>
+  </div>
     <script src="main.js"></script>
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly"
