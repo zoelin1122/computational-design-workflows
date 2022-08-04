@@ -20,7 +20,7 @@ h2 {
     background-color: #964B00;
     width: 100vw;
     padding: 3em 5em;
-    margin-bottom: 3em;
+    margin-bottom: 0;
 }
 
 h1 {
@@ -35,8 +35,8 @@ h1 {
 
 form {
   position: absolute;
-  top: 15em;
-  bottom: 5em;
+  top: 18em;
+  bottom: 50px;
   left: 5em;
   display: flex;
   flex-direction: column;
@@ -44,7 +44,7 @@ form {
   margin: auto;
   background: rgba(0, 0, 0, 0.493);
   padding-top: 20px;
-  padding-bottom: 20px;
+  padding-bottom: 100px;
   color: rgb(255, 255, 255);
 }
 
@@ -216,4 +216,42 @@ img {
 
 .mapboxgl-popup {
     max-width: 500px !important; 
+}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  padding: 1em 3em 0em 3em;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  color: #964B00;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  /* display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none; */
+  width: 100vw;
 }
