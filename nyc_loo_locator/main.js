@@ -6,6 +6,7 @@ const nameInput = document.querySelector(".name");
 const ratingInput = document.getElementsByName('rate');
 const descriptionInput = document.querySelector(".description");
 var button = document.querySelector("button");
+var lngLat = Number;
 
 
 //OBJECT SETUP
@@ -41,13 +42,15 @@ const addNewBathroom = (e) => {
   var selectedRating = Array.from(ratingInput).find(radio => radio.checked);
   const newRating = selectedRating.value;
   const newDescription = descriptionInput.value;
+  const newLngLat = lngLat;
   
   // store in a JSON object
   bathroomObject = {
 		location: newLocation,
+    thisLngLat: newLngLat,
 		name: newName,
-        cleanliness: newRating,
-        description: newDescription,
+    cleanliness: newRating,
+    description: newDescription,
 		completed: false,
 	}
   
@@ -83,8 +86,8 @@ const addNewBathroom = (e) => {
     } else {
         printBathroom(bathroomObject)
     }
-
-    // printBathrooms()
+    console.log(bathroomObject.thisLngLat);
+    renderLocations(bathrooms);
 
 }
 
@@ -298,6 +301,7 @@ function pageLoadFn(){
     } else {
             bathrooms = JSON.parse(localStorage.getItem('bathrooms'))
             bathrooms.bathroomList.forEach(printBathroom)
+            renderLocations(bathrooms);
     }
 }
 
@@ -356,29 +360,36 @@ map.on('click', function(event) {
 
     let lng = event.lngLat.lng
     let lat = event.lngLat.lat
+    
 
     console.log("clicked:", lng, lat)
 
     document.getElementById('info').innerHTML = lng.toFixed(5) + "," + lat.toFixed(5)
-
+    let marker = new mapboxgl.Marker()  
+    marker.setLngLat(event.lngLat).addTo(map)
+    locationInput.value=`${lng}, ${lat}`
+    marker.remove();
+    lngLat = [lng, lat];
 })
 
 
+
+
 function renderLocations(locations){
-    locations.forEach(function(d) {
+    locations.bathroomList.forEach(function(d) {
 
         let marker = new mapboxgl.Marker()    
-        marker.setLngLat(d.location)
+        marker.setLngLat(d.thisLngLat)
         marker.addTo(map)  
     
         let popup = new mapboxgl.Popup()
-        popup.setHTML(d.content)
+        popup.setHTML(`<div style="width: 170px"> <h2 style="text-align: left; margin-bottom:8px">${d.name}</h2> Cleanliness <br/> ${drawStar(d.cleanliness)} <br/>  <p style="color:grey; padding:5px">${d.description}<p>`)
         marker.setPopup(popup)
     
     })
 }
 
-renderLocations(data);
+// renderLocations(data);
 
 
 
@@ -411,15 +422,42 @@ function initAutocomplete() {
         }
 
         const name = place.name;
-        const position = place.geometry.location;
+        const lat = place.geometry.location.lat();
+        const lng = place.geometry.location.lng();
+        const currentlngLat = [parseFloat(lng), parseFloat(lat)];
+
+        map.flyTo({center: currentlngLat, zoom: 13});
         
-        console.log (name + position)
+        console.log (name + currentlngLat)
+
+        lngLat = currentlngLat;
+        return currentlngLat;
+
       });
     });
   }
+
+  function openView(evt, cityName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
   
-
-
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+  
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+  
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  
 // Events
 //----------------------------
 form.addEventListener("submit", addNewBathroom);
