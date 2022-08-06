@@ -13,17 +13,16 @@
   </head>
   <body>
     <div class="header">
-        <h1>Bathroom Locator</h1> 
-        <p class="subheading">When you've got to do(o) what you've got to do</p>
+        <h1>NYC Bathroom Locator</h1> 
+        <marquee class="subheading" style="margin-top: 1em;">When you've got to do(o) what you've got to do, but there's just no loo in view -- We are here to help you, do the doo, hopefully one with tissues and no queue!
+               When you've got to do(o) what you've got to do, but there's just no loo in view-- We are here to help you, do the doo, hopefully one with tissues and no queue!
+               When you've got to do(o) what you've got to do, but there's just no loo in view-- We are here to help you, do the doo, hopefully one with tissues and no queue!
+        </marquee>
     </div> 
     <div class="tab">
       <button class="tablinks" onclick="openView(event, 'MapContainer')" id="defaultOpen">Map View</button>
-      <button class="tablinks" onclick="openView(event, 'List')">List View</button>
+      <button class="tablinks" onclick="openView(event, 'listContainer')">List View</button>
     </div>
-    <script>
-      // Get the element with id="defaultOpen" and click on it
-      document.getElementById("defaultOpen").click();
-    </script>
     <div id="MapContainer" class="tabcontent">
     <div id='map'></div>
     <script>
@@ -39,7 +38,6 @@
     projection: 'globe' // display the map as a 3D globe
     });
     map.on('style.load', () => {
-    map.setFog({}); // Set the default atmosphere style
     });
     </script>
     <!-- an element called 'info' -->
@@ -56,9 +54,9 @@
                 <label for="name">Name:</label><br>
                 <input class="name" type="text" placeholder="Provide a descriptive name" />
       
-                <input class = "handicap" type="checkbox" id="handicap" name="scales" >
+                <!-- <input class = "handicap" type="checkbox" id="handicap" name="scales" >
                 <label class = "handicap" for="handicap">Handicap Accessible?</label>
-                <br>
+                <br> -->
       
                 <label for="cleanliness">Cleanliness:</label><br>
                 <div class="rate">
@@ -79,15 +77,29 @@
           <textarea class="description" placeholder="'psst… did the bathroom door require a code?'" id="description" cols="30" rows="10"></textarea>
         </section>
       </main>
-  
+      <div class="bottom">
+        <input class = "handicap" type="checkbox" id="handicap" name="scales" >
+        <label class = "handicap" for="handicap">Handicap Accessible</label> 
+        <input class = "genderNeutral" type="checkbox" id="genderNeutral" name="scales" >
+        <label class = "genderNeutral" for="genderNeutral">Gender Neutral</label>   
+        <input class = "singleStall" type="checkbox" id="singleStall" name="scales" >
+        <label class = "singleStall" for="singleStall">Single Stall</label>             
+      </div>
       <button type="submit">Submit</button>
       <div class="validation-space"></div>
     </form>
   </div>
-  <div id="List" class="tabcontent">
+  <div id="listContainer" class="tabcontent">
+    <input type="text" id="myInput" onkeyup="searchFilter()" placeholder="Search for loos..">
+    <div class="filters">
+      <button class="filterNone" onclick="filter('null')">All</button>
+      <button class="filterHandicap" onclick="filter('handicapTrue')">Handicap Accessible</button>
+      <button class="filterGender" onclick="filter('genderNeutralTrue')">Gender Neutral</button>
+      <button class="filterSingle" onclick="filter('singleStallTrue')">Single Stall</button>
+    </div>
     <div class="display"></div>
   </div>
-    <script src="main.js"></script>
+    <script src="main.js"> document.getElementById("defaultOpen").click(); </script>
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly"
     defer

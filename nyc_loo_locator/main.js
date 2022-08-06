@@ -5,9 +5,16 @@ const locationInput = document.querySelector(".location");
 const nameInput = document.querySelector(".name");
 const ratingInput = document.getElementsByName('rate');
 const descriptionInput = document.querySelector(".description");
+const handicapInput = document.querySelector(".handicap");
+const genderNeutralInput = document.querySelector(".genderNeutral");
+const singleStallInput = document.querySelector(".singleStall");
+const filterHandicap = document.getElementsByClassName("filterHandicap")
+const filterGender = document.getElementsByClassName("filterGender")
+const filterSingle = document.getElementsByClassName("filterSingle")
+const filterNone = document.getElementsByClassName("filterNone")
+
 var button = document.querySelector("button");
 var lngLat = Number;
-
 
 //OBJECT SETUP
 //----------------------------
@@ -43,6 +50,10 @@ const addNewBathroom = (e) => {
   const newRating = selectedRating.value;
   const newDescription = descriptionInput.value;
   const newLngLat = lngLat;
+  const newHandicapBool = handicapInput.checked;
+  const newGenderBool = genderNeutralInput.checked;
+  const newSingleBool = singleStallInput.checked;
+
   
   // store in a JSON object
   bathroomObject = {
@@ -51,7 +62,10 @@ const addNewBathroom = (e) => {
 		name: newName,
     cleanliness: newRating,
     description: newDescription,
-		completed: false,
+    completed: false,
+    handicap: newHandicapBool,
+    genderNeutral: newGenderBool,
+    singleStall: newSingleBool
 	}
   
   // pass object into display function
@@ -61,7 +75,32 @@ const addNewBathroom = (e) => {
 	bathrooms.bathroomList.push(bathroomObject);
     console.log(bathrooms)
   //store in local storage
-	localStorage.setItem("bathrooms", JSON.stringify(bathrooms));
+
+  localStorage.setItem("bathrooms", JSON.stringify(bathrooms));
+  /* firebase stuff
+
+  var shareddatabase = firebase.database(); // put this up at top of htis file
+
+   shareddatabase.ref("bathroomshahaha").push(bathroomObject);
+
+
+
+  shareddatabase.ref("bathroomshahaha").on("value", function(snapshot) {
+    var data = snapshot.val();
+    
+    
+    
+    // clear pins on map
+    
+    // add pins onto map
+    for(var ms in data) {
+      console.log(m, data[m]);
+      //data[m].cleanliness
+    }
+
+  });
+
+  */
 
 	//clear form
 	form.reset();
@@ -94,6 +133,18 @@ const addNewBathroom = (e) => {
 function printBathroom(bathroom){
     let display = document.querySelector('.display')
     var row = document.createElement("tr");
+    
+    if (bathroom.handicap) {
+      row.classList.add("handicapTrue")
+    }
+
+    if (bathroom.singleStall) {
+      row.classList.add("singleStallTrue")
+    }
+
+    if (bathroom.genderNeutral) {
+      row.classList.add("genderNeutralTrue")
+    }
     
     for (var i = 0; i < 4; i++) {
       // create element <td> and text node 
@@ -141,6 +192,7 @@ function printBathroom(bathroom){
 function printTable(bathroom){
         let display = document.querySelector('.display')
         var tbl = document.createElement("table");
+        tbl.setAttribute("id","myTable")
         var tblBody = document.createElement("tbody");
         var headerRow = document.createElement("tr");
         tblBody.appendChild(headerRow);
@@ -149,6 +201,9 @@ function printTable(bathroom){
         var header3 = document.createElement("th");
         var header4 = document.createElement("th");
         var row = document.createElement("tr");
+        headerRow.classList.add("handicapTrue")
+        headerRow.classList.add("singleStallTrue")
+        headerRow.classList.add("genderNeutralTrue")
         for (var i = 0; i < 4; i++) {
             // create element <td> and text node 
             //Make text node the contents of <td> element
@@ -192,7 +247,6 @@ function printTable(bathroom){
         headerRow.appendChild(header4);
         // put <table> in the <body>
         // tbl border attribute to 
-        tbl.setAttribute("border", "2");
         tblBody.appendChild(row);
         tbl.appendChild(tblBody);
         display.appendChild(tbl);
@@ -303,10 +357,12 @@ function pageLoadFn(){
             bathrooms.bathroomList.forEach(printBathroom)
             renderLocations(bathrooms);
     }
+    if(document.getElementById("defaultOpen") == null){
+      console.log("what")
+    } else {
+      document.getElementById("defaultOpen").click();
+    }
 }
-
-pageLoadFn()
-
 
 
 
@@ -381,9 +437,25 @@ function renderLocations(locations){
         let marker = new mapboxgl.Marker()    
         marker.setLngLat(d.thisLngLat)
         marker.addTo(map)  
+        let string = `<div style="width: 170px"> <h2 style="text-align: left; margin-bottom:8px">${d.name}</h2> Cleanliness <br/> 
+        ${drawStar(d.cleanliness)} <br/>  <p style="color:grey; padding:5px 0">${d.description}</p>`
+
+        if (d.handicap) {
+          string = string + '<span style="padding: 0 5px">     ♿︎     </span>';
+        }
+
+        if (d.genderNeutral) {
+          string = string + '<span style="padding: 0 5px">     ⚧     </span>';
+        }
+
+        if (d.singleStall) {
+          string = string + '<span style="padding: 0 5px">    ⌂     </span>';
+        }
     
-        let popup = new mapboxgl.Popup()
-        popup.setHTML(`<div style="width: 170px"> <h2 style="text-align: left; margin-bottom:8px">${d.name}</h2> Cleanliness <br/> ${drawStar(d.cleanliness)} <br/>  <p style="color:grey; padding:5px">${d.description}<p>`)
+        let popup = new mapboxgl.Popup()        
+        popup.setHTML(string)
+
+        
         marker.setPopup(popup)
     
     })
@@ -437,7 +509,7 @@ function initAutocomplete() {
     });
   }
 
-  function openView(evt, cityName) {
+  function openView(evt, viewCity) {
     // Declare all variables
     var i, tabcontent, tablinks;
   
@@ -454,10 +526,59 @@ function initAutocomplete() {
     }
   
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(viewCity).style.display = "block";
     evt.currentTarget.className += " active";
   }
   
+  function searchFilter() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    console.log(filter)
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+  
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      console.log(td)
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+
+  function filter(f) {
+    var filter, table, tr;
+    filter = f;
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    if (f == "null") {
+      for (i = 0; i < tr.length; i++){tr[i].style.display = "";}
+    } else {
+      for (i = 0; i < tr.length; i++) {
+        if (tr[i].classList.contains(filter)) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+      }
+    }
+  }
+
+  document.getElementById("defaultOpen").click();
+  pageLoadFn()
+    
 // Events
 //----------------------------
 form.addEventListener("submit", addNewBathroom);
+// filterHandicap.addEventListener("click", filter('handicapTrue'));
+// filterSingle.addEventListener("click", filter('singleStallTrue'));
+// filterGender.addEventListener("click", filter('genderNeutralTrue'));
+

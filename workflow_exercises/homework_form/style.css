@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather|Open+Sans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Merriweather', serif;
+}
+
+body {
+  /* padding: 40px; */
+}
+
+h2 {
+  text-align: center;
+}
+
+.header {
+    align-content: center;
+    background-color: #964B00;
+    width: 100vw;
+    padding: 3em 5em;
+    margin-bottom: 3em;
+}
+
+h1 {
+    color: antiquewhite;
+    align-content: center;
+}
+
+.subheading {
+    color: antiquewhite;
+    align-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  background: rgb(239, 239, 239);
+  padding: 20px 0;
+  color: rgb(158, 158, 158);
+}
+
+.container {
+  margin: 20px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.left, .right {
+  flex-basis: 60%;
+/*   float: left;
+  width: 50%;
+  padding-bottom: 20px; */
+}
+
+.left {
+  margin-right: 10px;
+}
+
+input[type="checkbox"] {
+    border: none;
+    line-height: 30px;
+    margin: 10px 1em 20px;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+
+
+input[type="text"],
+input[type="subject"],
+input[type="radio"] {
+  width: 100%;
+  border: none;
+  line-height: 30px;
+  margin: 5px 0 20px;
+  border-radius: 4px;
+  padding-left: 15px;
+}
+
+textarea {
+  padding: 15px;
+  width: 100%;
+  margin: 5px 0 0;
+  border: none;
+  border-radius: 4px;
+}
+
+button {
+  color: #FFF;
+  background: #4fa473;
+  border: none;
+  margin: 0 20px 20px 20px;
+  line-height: 30px;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 600px) {
+  .container { 
+    flex-direction: column; 
+  }
+}
+
+table {
+    margin: 3em 10%;
+    border: 1px solid;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+td {
+    padding: 2em;
+}
+
+th {
+    padding: 5%;
+    background-color: #964B00;
+    color:antiquewhite;
+}
+
+.validation {
+    margin-top: 30px;
+    padding: 5%;
+    text-align: center;
+    size: 50px;
+    background-color: #4fa473;
+    color: azure;
+}
+
+.cleanliness {
+    color: #ffc700; 
+}
+
+/* Below modified from github*/
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+.rate:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rate:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rate:not(:checked) > label:before {
+    content: '★';
+}
+.rate > input:checked ~ label {
+    color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+    color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+    color: #c59b08;
+}
+
+/* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
+
+#map {
+    /* position: absolute;
+    align-content: center;
+    top: 0;
+    bottom: 0;
+    width: 100%; */
+    width: 100%; 
+    /* height: 300px; */
+}
+
+li {
+  text-decoration: none;  
+  color: white;
+}
+
+/* #info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px 10px auto auto;   
+    padding: 5px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+    background: #fff;
+} */
+
+img {
+    width: 50%;
+}
+
+.mapboxgl-popup {
+    max-width: 400px !important; 
+}

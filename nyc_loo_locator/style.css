@@ -17,10 +17,13 @@ h2 {
 
 .header {
     align-content: center;
+    text-align: center;
     background-color: #964B00;
     width: 100vw;
     padding: 3em 5em;
     margin-bottom: 0;
+    /* font-family: arial;
+    font-style: bold; */
 }
 
 h1 {
@@ -42,7 +45,7 @@ form {
   flex-direction: column;
   width: 40%;
   margin: auto;
-  background: rgba(0, 0, 0, 0.493);
+  background: rgba(0, 0, 0, 0.637);
   padding-top: 20px;
   padding-bottom: 100px;
   color: rgb(255, 255, 255);
@@ -65,16 +68,19 @@ form {
   margin-right: 10px;
 }
 
-label.handicap {
+label.handicap,
+label.genderNeutral,
+label.singleStall {
   font-style: normal;
   color: white;
   font-size: 10pt;
+  margin-right: 4em;
 }
 
 input[type="checkbox"] {
     border: none;
     line-height: 30px;
-    margin: 10px 1em 20px;
+    margin: 10px 1em 20px 0px;
     border-radius: 4px;
     padding-left: 10px;
 }
@@ -104,9 +110,14 @@ button {
   color: #FFF;
   background: #4fa473;
   border: none;
-  margin: 0 20px 20px 20px;
+  margin: 0px 20px 20px 20px;
   line-height: 30px;
   border-radius: 4px;
+}
+
+.bottom {
+  margin: -10px 20px 10px 20px;
+  width: 100%;
 }
 
 @media screen and (max-width: 600px) {
@@ -116,24 +127,28 @@ button {
 }
 
 table {
-    margin: 3em 10%;
-    border: 1px solid;
+    margin: 0em 10% 3em 10%;
     border-collapse: collapse;
     width: 80%;
 }
 
+tr {
+  border: 1px solid #ddd; 
+}
+
 td {
     padding: 2em;
+    width: 25%;
 }
 
 th {
-    padding: 5%;
-    background-color: #964B00;
-    color:antiquewhite;
+    padding: 2em 5%;
+    background-color:#f1f1f1;
+    color: hsl(30, 100%, 29%);
 }
 
 .validation {
-    margin-top: 30px;
+    margin-top: 0;
     padding: 5%;
     text-align: center;
     size: 50px;
@@ -186,9 +201,8 @@ th {
 /* Modified from: https://github.com/mukulkant/Star-rating-using-pure-css */
 
 #map {
-    width: 100%; 
-    padding-top: 0em;
-    height: 100vh;
+    width: 100vw; 
+    height: 75vh;
 }
 
 li {
@@ -196,22 +210,22 @@ li {
   color: white;
 }
 
-/* #info {
+#info {
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
     margin: 10px 10px auto auto;   
     padding: 5px;
-    border: 2px solid #ddd;
+    border: 2px solid rgba(0, 0, 0, 0.281);
     border-radius: 5px;
     font-size: 12px;
     text-align: center;
     color: #222;
     background: #fff;
-} */
+}
 
 img {
-    width: 50%;
+    width: 100%;
 }
 
 .mapboxgl-popup {
@@ -223,6 +237,8 @@ img {
   border: 1px solid #ccc;
   background-color: #f1f1f1;
   padding: 1em 3em 0em 3em;
+  display: flex;
+  justify-content: center;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -249,9 +265,54 @@ img {
 
 /* Style the tab content */
 .tabcontent {
-  /* display: none;
+  /* 
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none; */
   width: 100vw;
+  display: none;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 80%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  margin: 5em 10% 12px 10%;
+  border: 1px solid #ddd; /* Add a grey border */
+
+}
+
+.filters {
+  padding: 1em 20vh 1em 20vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-evenly;
+  font-size: 16px; /* Increase font-size */
+}
+
+.filterNone,
+.filterHandicap,
+.filterGender,
+.filterSingle {
+  width: 100%;
+  height: 5em;
+  background-color: #ffffff; 
+  color: rgb(41, 41, 41);
+  /* border: 0.5px solid black; */
+  border: 1px solid #ddd; 
+
+}
+
+.filters button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.filters button.active {
+  background-color: #ccc;
 }
