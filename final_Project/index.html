@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>NYC Bathroom Locator</title>
+    <title>Our Spaces</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
@@ -13,17 +13,21 @@
   </head>
   <body>
     <div class="header">
-        <h1>NYC Bathroom Locator</h1> 
-        <marquee class="subheading" style="margin-top: 1em;">When you've got to do(o) what you've got to do, but there's just no loo in view -- We are here to help you, do the doo, hopefully one with tissues and no queue!
-               When you've got to do(o) what you've got to do, but there's just no loo in view-- We are here to help you, do the doo, hopefully one with tissues and no queue!
-               When you've got to do(o) what you've got to do, but there's just no loo in view-- We are here to help you, do the doo, hopefully one with tissues and no queue!
-        </marquee>
+        <h1>Our Spaces</h1> 
+        <p class="subheading" style="margin-top: 1em;">Your city, your space, your say</p>
     </div> 
-    <div class="tab">
+    <ul>
+      <li><a class="active" href="index.html">Home</a></li>
+      <li><a href="#news">News</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#about">About</a></li>
+  </ul>
+    <!-- <div class="tab">
       <button class="tablinks" onclick="openView(event, 'MapContainer')" id="defaultOpen">Map View</button>
       <button class="tablinks" onclick="openView(event, 'listContainer')">List View</button>
-    </div>
-    <div id="MapContainer" class="tabcontent">
+    </div> -->
+    <!-- <div id="MapContainer" class="tabcontent"> -->
+    <div>
     <div id='map'></div>
     <script>
     // TO MAKE THE MAP APPEAR YOU MUST
@@ -42,54 +46,35 @@
     </script>
     <!-- an element called 'info' -->
     <div id='info'></div>
-    
-    <form action="">
-      <h2>Bathroom submission form</h2>
-      <main class="container">
-        <!--     Left -->
-        <section class="left">
-                <label for="location">Location:</label><br>
-                <input id="pac-input" class="location" type="text" placeholder="Where is this loo?" />
-      
-                <label for="name">Name:</label><br>
-                <input class="name" type="text" placeholder="Provide a descriptive name" />
-      
-                <!-- <input class = "handicap" type="checkbox" id="handicap" name="scales" >
-                <label class = "handicap" for="handicap">Handicap Accessible?</label>
-                <br> -->
-      
-                <label for="cleanliness">Cleanliness:</label><br>
-                <div class="rate">
-                  <input type="radio" id="star5" name="rate" value="5" />
-                  <label for="star5" title="text">5 stars</label>
-                  <input type="radio" id="star4" name="rate" value="4" />
-                  <label for="star4" title="text">4 stars</label>
-                  <input type="radio" id="star3" name="rate" value="3" />
-                  <label for="star3" title="text">3 stars</label>
-                  <input type="radio" id="star2" name="rate" value="2" />
-                  <label for="star2" title="text">2 stars</label>
-                  <input type="radio" id="star1" name="rate" value="1" />
-                  <label for="star1" title="text">1 star</label>
-                </div>
-        </section>
-        <section class="right">
-          <label for="description">Dirty Details:</label><br>
-          <textarea class="description" placeholder="'psst… did the bathroom door require a code?'" id="description" cols="30" rows="10"></textarea>
-        </section>
-      </main>
-      <div class="bottom">
-        <input class = "handicap" type="checkbox" id="handicap" name="scales" >
-        <label class = "handicap" for="handicap">Handicap Accessible</label> 
-        <input class = "genderNeutral" type="checkbox" id="genderNeutral" name="scales" >
-        <label class = "genderNeutral" for="genderNeutral">Gender Neutral</label>   
-        <input class = "singleStall" type="checkbox" id="singleStall" name="scales" >
-        <label class = "singleStall" for="singleStall">Single Stall</label>             
+
+    <div class="searchTable">
+      <h3 style="padding-left: 10%; text-align: left;">Spaces near you</h3>
+      <input class="spaceInput" type="text" id="pac-input" onkeyup="searchFilter()" placeholder="Search for spaces near you..">
+      <div class="filters">
+        <button class="filterNone" onclick="filter('null')">All</button>
+        <button class="filterCulture" onclick="filter('cultureTrue')">Culture</button>
+        <button class="filterHealth" onclick="filter('healthTrue')">Health</button>
+        <button class="filterChildren" onclick="filter('childrenTrue')">Children</button>
       </div>
-      <button type="submit">Submit</button>
-      <div class="validation-space"></div>
-    </form>
+      <div class="display">
+        <table id="myTable" class="spaceTable">
+          <col width="20%" />
+          <col width="20%" />
+          <col width="20%" />
+          <col width="40%" />
+          <tbody>
+            <tr class="childrenTrue cultureTrue healthTrue">
+              <th>Name</th>
+              <th>Rating</th>
+              <th>Location</th>
+              <th>Description</th>
+            </tr>
+          </tbody>
+        </table>          
+      </div>
+    </div>
   </div>
-  <div id="listContainer" class="tabcontent">
+  <!-- <div id="listContainer" class="tabcontent">
     <input type="text" id="myInput" onkeyup="searchFilter()" placeholder="Search for loos..">
     <div class="filters">
       <button class="filterNone" onclick="filter('null')">All</button>
@@ -98,7 +83,7 @@
       <button class="filterSingle" onclick="filter('singleStallTrue')">Single Stall</button>
     </div>
     <div class="display"></div>
-  </div>
+  </div> -->
     <script src="main.js"> document.getElementById("defaultOpen").click(); </script>
     <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly"

@@ -1,19 +1,17 @@
 // Structure
 //----------------------------
 const form = document.querySelector("form");
-const locationInput = document.querySelector(".location");
 const nameInput = document.querySelector(".name");
-const ratingInput = document.getElementsByName('rate');
 const descriptionInput = document.querySelector(".description");
-const handicapInput = document.querySelector(".handicap");
-const genderNeutralInput = document.querySelector(".genderNeutral");
-const singleStallInput = document.querySelector(".singleStall");
+const cultureInput = document.querySelector(".culture");
+const healthInput = document.querySelector(".health");
+const childrenInput = document.querySelector(".children");
 const filterHandicap = document.getElementsByClassName("filterHandicap")
 const filterGender = document.getElementsByClassName("filterGender")
 const filterSingle = document.getElementsByClassName("filterSingle")
 const filterNone = document.getElementsByClassName("filterNone")
-
 var button = document.querySelector("button");
+
 var lngLat = Number;
 
 //OBJECT SETUP
@@ -34,7 +32,6 @@ let users = {
 //   location: newLocation,
 //   thisLngLat: newLngLat,
 //   name: newName,
-//   name: newID,
 //   suggestions: newSuggestionList,
 //   description: newDescription,
 //   renewDate: newDate,
@@ -66,7 +63,6 @@ let place1 = {
   location: "139 Eldridge",
   thisLngLat: [-73.9917492, 40.7192191],
   name: "Dance With Me",
-  id: "dance_with_me",
   description: 'Staffed by the dancers of our community, Dance With Me hosts social dance parties and dance lesson. Join us, experts and beginners, to Cha Cha, Bolero, Swing, Mambo, Paso Doble, Waltz, Tango, Foxtrot, QuickStep, Viennese Waltz, Merengue, Salsa, Rumba, Samba, Hip Hop & Contemporary dance your worries away!',
   renewDate: new Date(2042, 6, 01) ,
   suggestions: null,
@@ -77,7 +73,6 @@ let place2 = {
   location: "141 Mott",
   thisLngLat: [-73.99679929999999, 40.7186996],
   name: "Laundromat Bar",
-  id: "laundromat_bar",
   description: 'First Laundromat Bar in NYC, thanks to the inginuity of our community! Waiting for your sheets to dry no longer needs to be boring an tedious; Come do your late night laundry and share a night cap with your wonderful neighbors as you watch them tumble!',
   renewDate: new Date(2042, 11, 15) ,
   suggestions: null,
@@ -115,146 +110,104 @@ console.log(users)
 
 // Event Handlers
 //----------------------------
-// const addNewBathroom = (e) => {
-//   e.preventDefault();
+const addNewSuggestion = (e) => {
+  e.preventDefault();
   
-//   // variable for values entered in the form
-//   const newLocation = locationInput.value;
-//   const newName = nameInput.value;
-//   var selectedRating = Array.from(ratingInput).find(radio => radio.checked);
-//   const newRating = selectedRating.value;
-//   const newDescription = descriptionInput.value;
-//   const newLngLat = lngLat;
-//   const newHandicapBool = handicapInput.checked;
-//   const newGenderBool = genderNeutralInput.checked;
-//   const newSingleBool = singleStallInput.checked;
+  // variable for values entered in the form
+  const newName = nameInput.value;
+  const newDescription = descriptionInput.value;
+  const newLngLat = lngLat;
+  const newCultureBool = cultureInput.checked;
+  const newHealthBool = healthInput.checked;
+  const newChildrenBool = childrenInput.checked;
 
   
-//   // store in a JSON object
-//   bathroomObject = {
-// 		location: newLocation,
-//     thisLngLat: newLngLat,
-// 		name: newName,
-//     cleanliness: newRating,
-//     description: newDescription,
-//     completed: false,
-//     handicap: newHandicapBool,
-//     genderNeutral: newGenderBool,
-//     singleStall: newSingleBool
-// 	}
+  // store in a JSON object
+  suggestionObject = {
+    thisLngLat: newLngLat,
+		name: newName,
+    description: newDescription,
+    culture: newCultureBool,
+    health: newHealthBool,
+    children: newChildrenBool,
+    score: 1,
+	}
   
-//   // pass object into display function
-// 	// displayContact(bathroomObject);
+  // pass object into display function
+	// displayContact(bathroomObject);
   
-//   //add object to array
-// 	bathrooms.bathroomList.push(bathroomObject);
-//     console.log(bathrooms)
-//   //store in local storage
+  //add object to array
+	suggestions.suggestionList.push(suggestionObject);
+    console.log(suggestions)
+  //store in local storage
 
-//   localStorage.setItem("bathrooms", JSON.stringify(bathrooms));
-//   /* firebase stuff
+  localStorage.setItem("suggestions", JSON.stringify(suggestions));
+  /* firebase stuff
 
-//   var shareddatabase = firebase.database(); // put this up at top of htis file
+  var shareddatabase = firebase.database(); // put this up at top of htis file
 
-//    shareddatabase.ref("bathroomshahaha").push(bathroomObject);
+   shareddatabase.ref("bathroomshahaha").push(bathroomObject);
 
 
 
-//   shareddatabase.ref("bathroomshahaha").on("value", function(snapshot) {
-//     var data = snapshot.val();
+  shareddatabase.ref("bathroomshahaha").on("value", function(snapshot) {
+    var data = snapshot.val();
     
     
     
-//     // clear pins on map
+    // clear pins on map
     
-//     // add pins onto map
-//     for(var ms in data) {
-//       console.log(m, data[m]);
-//       //data[m].cleanliness
-//     }
-
-//   });
-
-//   */
-
-// 	//clear form
-// 	form.reset();
-
-//     //Print result
-//     let display = document.querySelector('.display')
-//     let bathroomCollection = document.createElement('table')
-//     display.append(bathroomCollection)
-//     console.log(bathrooms.bathroomList.length)
-//     // printTable(bathroomObject);
-//     var validation = document.createElement("h2")
-//     let valDisplay = document.querySelector('.validation-space')
-//     validation.textContent="✓ Thank you for submiting!"
-//     validation.classList.add("validation");
-//     while (valDisplay.firstChild){
-//         valDisplay.removeChild(valDisplay.firstChild)
-//       }
-//     valDisplay.appendChild(validation)
-//     printBathroom(bathroomObject)
-//     console.log(bathroomObject.thisLngLat);
-//     renderLocations(bathrooms);
-
-// }
-
-function printSpace(space){
-    let display = document.querySelector('.display')
-    var row = document.createElement("tr");
-    row.setAttribute("data-lnglat", space.thisLngLat)
-    
-    // if (bathroom.handicap) {
-    //   row.classList.add("handicapTrue")
-    // }
-
-    // if (bathroom.singleStall) {
-    //   row.classList.add("singleStallTrue")
-    // }
-
-    // if (bathroom.genderNeutral) {
-    //   row.classList.add("genderNeutralTrue")
-    // }
-    
-    for (var i = 0; i < 4; i++) {
-      // create element <td> and text node 
-      //Make text node the contents of <td> element
-      // put <td> at end of the table row
-      var cell = document.createElement("td");
-      if (i==0) {
-        var cellText = document.createTextNode(
-          space.name);
-          cell.appendChild(cellText);
-          row.appendChild(cell);
-          cell.classList.add("name");
-      } else if (i==1){
-        var cellText = document.createTextNode(
-          drawStar(space.rating)
-        );
-        cell.appendChild(cellText);
-        row.appendChild(cell);
-        cell.classList.add("rating");
-      } else if (i==2){        
-        var cellText = document.createTextNode(
-          space.location);
-          cell.appendChild(cellText);
-          row.appendChild(cell);
-          cell.classList.add("location");
-      } else if (i==3){
-        var cellText = document.createTextNode(
-        space.description);
-        var cellDiv = document.createElement('div')
-        cellDiv.classList = "cellDiv";
-        cellDiv.appendChild(cellText);
-        cell.appendChild(cellDiv);
-        row.appendChild(cell);
-        cell.classList.add("description");
+    // add pins onto map
+    for(var ms in data) {
+      console.log(m, data[m]);
+      //data[m].cleanliness
     }
-    } 
-    display.querySelector('tbody').appendChild(row);
+
+  });
+
+  */
+
+	//clear form
+	form.reset();
+
+    //Print result
+    // let suggestionnCollection = document.createElement('table')
+    // display.append(suggestionnCollection)
+    var validation = document.createElement("h2")
+    let valDisplay = document.querySelector('.validation-space')
+    validation.textContent="✓ Thank you for submiting!"
+    validation.classList.add("validation");
+    while (valDisplay.firstChild){
+        valDisplay.removeChild(valDisplay.firstChild)
+      }
+    valDisplay.appendChild(validation)
+    printSuggestion(suggestionObject)
 }
 
+function printSuggestion(suggestion) {
+  let display = document.querySelector(".display");
+  let suggestionBox = document.createElement("div")
+  let suggestionName = document.createElement("h2")
+  let suggestionDescription = document.createElement("p")
+  let suggestionScore = document.createElement("div")
+  suggestionBox.classList.add("suggestionBox")
+  suggestionName.classList.add("suggestionName")
+  suggestionDescription.classList.add("suggestionDescription")
+  suggestionScore.classList.add("suggestionScore")
+
+  console.log(suggestion.name)
+  console.log(suggestion.description)
+  suggestionName.innerText = suggestion.name
+  suggestionDescription.innerText = suggestion.description
+  suggestionScore.innerText = "+" + suggestion.score
+
+  suggestionBox.appendChild(suggestionName)
+  suggestionBox.appendChild(suggestionDescription)
+  suggestionBox.appendChild(suggestionScore)
+
+  display.appendChild(suggestionBox)
+
+}
 
 function drawStar(int){
     var stars = " "
@@ -274,15 +227,13 @@ function drawStar(int){
 
 
 function pageLoadFn(){
-    // if (localStorage.getItem('places')==null){
-    //     return
-    // } else {
-    //         places = JSON.parse(localStorage.getItem('places'))
-    //         places.placeList.forEach(printSpace)
-    //         renderLocations(places);
-    // }
-    places.placeList.forEach(printSpace)
-    renderLocations(places);
+    if (localStorage.getItem('suggestions')==null){
+        return
+    } else {
+      suggestions = JSON.parse(localStorage.getItem('suggestions'))
+      suggestions.suggestionList.forEach(printSuggestion)
+    }
+    // suggestions.suggestionList.forEach(printSuggestion)
     // if(document.getElementById("defaultOpen") == null){
     //   console.log("what")
     // } else {
@@ -299,43 +250,43 @@ let navigation = new mapboxgl.NavigationControl({
 })
 
 // add the navigation to your map
-map.addControl(navigation, 'top-right')
+// map.addControl(navigation, 'top-right')
 
-// create an instance of ScaleControl
-let scale = new mapboxgl.ScaleControl({
-    maxWidth: 80,
-    unit: 'imperial'
-})
+// // create an instance of ScaleControl
+// let scale = new mapboxgl.ScaleControl({
+//     maxWidth: 80,
+//     unit: 'imperial'
+// })
 
-// add the scale to your map
-map.addControl(scale, 'bottom-right')
+// // add the scale to your map
+// map.addControl(scale, 'bottom-right')
 
-let geolocate = new mapboxgl.GeolocateControl({
-    positionOptions: {
-        enableHighAccuracy: true
-    },
-    trackUserLocation: true,
-    showUserLocation: true,
-    fitBoundsOptions: {
-    }
-})
+// let geolocate = new mapboxgl.GeolocateControl({
+//     positionOptions: {
+//         enableHighAccuracy: true
+//     },
+//     trackUserLocation: true,
+//     showUserLocation: true,
+//     fitBoundsOptions: {
+//     }
+// })
 
-map.addControl(geolocate, 'top-right')
+// map.addControl(geolocate, 'top-right')
 
-// this is an event handler
-geolocate.on('geolocate', function(event) {
+// // this is an event handler
+// geolocate.on('geolocate', function(event) {
 
-    // create new variables to store the attributes we're interested in from the event
-    let lng = event.coords.longitude
-    let lat = event.coords.latitude
+//     // create new variables to store the attributes we're interested in from the event
+//     let lng = event.coords.longitude
+//     let lat = event.coords.latitude
 
-    // debug
-    console.log('geolocated:', lng, lat)
+//     // debug
+//     console.log('geolocated:', lng, lat)
 
-    // format lng lat values and display them on our 'info' element
-    document.getElementById('info').innerHTML = lng.toFixed(5) + "," + lat.toFixed(5)
+//     // format lng lat values and display them on our 'info' element
+//     document.getElementById('info').innerHTML = lng.toFixed(5) + "," + lat.toFixed(5)
 
-})
+// })
 
 
 function renderLocations(locations){
@@ -345,7 +296,7 @@ function renderLocations(locations){
         marker.addTo(map)  
         let string = `<div style="width: 170px"> <h2 style="text-align: left; margin-top:10px; margin-bottom:8px">${d.name}</h2>
         ${drawStar(d.rating)} <br/> <p style="color:grey; padding:5px 0">${d.description}</p> <br/> 
-        <button class="future" onclick="location.href='${d.id}.html';" >Future</button>`
+        <button class="future">Future</button>`
         let popup = new mapboxgl.Popup()        
         popup.setHTML(string)
         console.log(string)
@@ -422,8 +373,8 @@ function initAutocomplete() {
   
   function searchFilter() {
     // Declare variables
-    var input, filter, table, tr, i, nameValue, locationValue;
-    input = document.getElementById("pac-input");
+    var input, filter, table, tr, td, i, nameValue, locationValue;
+    input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
     table = document.getElementById("myTable");
     tr = table.getElementsByTagName("tr");
@@ -489,7 +440,7 @@ document.querySelectorAll('tr')
     map.flyTo({center: lngLat, zoom: 15});
 
 }));
-// form.addEventListener("submit", addNewBathroom);
+form.addEventListener("submit", addNewSuggestion);
 // filterHandicap.addEventListener("click", filter('handicapTrue'));
 // filterSingle.addEventListener("click", filter('singleStallTrue'));
 // filterGender.addEventListener("click", filter('genderNeutralTrue'));

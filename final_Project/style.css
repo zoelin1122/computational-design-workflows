@@ -7,10 +7,6 @@
   font-family: 'Merriweather', serif;
 }
 
-body {
-  /* padding: 40px; */
-}
-
 h2 {
   text-align: center;
 }
@@ -18,7 +14,7 @@ h2 {
 .header {
     align-content: center;
     text-align: center;
-    background-color: #964B00;
+    background-color: #355E3B;
     width: 100vw;
     padding: 3em 5em;
     margin-bottom: 0;
@@ -36,18 +32,15 @@ h1 {
     align-content: center;
 }
 
+
 form {
-  position: absolute;
-  top: 18em;
-  bottom: 50px;
-  left: 5em;
   display: flex;
   flex-direction: column;
-  width: 40%;
-  margin: auto;
-  background: rgba(0, 0, 0, 0.637);
-  padding-top: 20px;
-  padding-bottom: 100px;
+  width: 100%;
+  height: 20%;
+  margin: 2em;
+  background: #355E3B;
+  padding: 1.5em;
   color: rgb(255, 255, 255);
 }
 
@@ -57,11 +50,12 @@ form {
   align-items: flex-start;
 }
 
-.left, .right {
+.left, 
+.right {
   flex-basis: 60%;
-/*   float: left;
+  float: left;
   width: 50%;
-  padding-bottom: 20px; */
+  padding: 20px;
 }
 
 .left {
@@ -70,7 +64,10 @@ form {
 
 label.handicap,
 label.genderNeutral,
-label.singleStall {
+label.singleStall,
+label.children,
+label.health,
+label.culture {
   font-style: normal;
   color: white;
   font-size: 10pt;
@@ -101,23 +98,22 @@ input[type="radio"] {
 textarea {
   padding: 15px;
   width: 100%;
+  height: 10em;
   margin: 5px 0 0;
   border: none;
   border-radius: 4px;
 }
 
 button {
-  color: #FFF;
-  background: #4fa473;
-  border: none;
   margin: 0px 20px 20px 20px;
   line-height: 30px;
   border-radius: 4px;
-}
-
-.bottom {
-  margin: -10px 20px 10px 20px;
   width: 100%;
+  height: auto;
+  background-color: #ffffff; 
+  color: rgb(41, 41, 41);
+  /* border: 0.5px solid black; */
+  border: 1px solid #ddd; 
 }
 
 @media screen and (max-width: 600px) {
@@ -126,26 +122,6 @@ button {
   }
 }
 
-table {
-    margin: 0em 10% 3em 10%;
-    border-collapse: collapse;
-    width: 80%;
-}
-
-tr {
-  border: 1px solid #ddd; 
-}
-
-td {
-    padding: 2em;
-    width: 25%;
-}
-
-th {
-    padding: 2em 5%;
-    background-color:#f1f1f1;
-    color: hsl(30, 100%, 29%);
-}
 
 .validation {
     margin-top: 0;
@@ -205,40 +181,34 @@ th {
     height: 75vh;
 }
 
-li {
-  text-decoration: none;  
-  color: white;
+#mapPlace {
+  width: 80%; 
+  height: 30vh;
+  padding: 2em;
+  float: right;
 }
 
-#info {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    margin: 10px 10px auto auto;   
-    padding: 5px;
-    border: 2px solid rgba(0, 0, 0, 0.281);
-    border-radius: 5px;
-    font-size: 12px;
-    text-align: center;
-    color: #222;
-    background: #fff;
-}
-
-img {
-    width: 100%;
-}
-
-.mapboxgl-popup {
-    max-width: 500px !important; 
-}
-
-.tab {
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 1em 4em;
   overflow: hidden;
-  border: 1px solid #ccc;
   background-color: #f1f1f1;
-  padding: 1em 3em 0em 3em;
-  display: flex;
-  justify-content: center;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #964B00;
+  text-align: center;
+  padding: 14px 16px;
+  margin-right: 2em;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -252,6 +222,27 @@ img {
   padding: 14px 16px;
   transition: 0.3s;
 }
+
+
+li a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+.active {
+  background-color:  #ccc;
+  border-radius: 5px;
+}
+
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  padding: 1em 3em 0em 3em;
+  display: flex;
+  justify-content: center;
+}
+
 
 /* Change background color of buttons on hover */
 .tab button:hover {
@@ -273,20 +264,43 @@ img {
   display: none;
 }
 
-#myInput {
+
+#info {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px 10px auto auto;   
+    padding: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.281);
+    border-radius: 5px;
+    font-size: 12px;
+    text-align: center;
+    color: #222;
+    background: #fff;
+}
+
+img {
+    width: 100%;
+}
+
+.mapboxgl-popup {
+    max-width: 600px !important; 
+}
+
+#pac-input {
   background-image: url('/css/searchicon.png'); /* Add a search icon to input */
   background-position: 10px 12px; /* Position the search icon */
   background-repeat: no-repeat; /* Do not repeat the icon image */
   width: 80%; /* Full-width */
-  font-size: 16px; /* Increase font-size */
+  font-size: 12px; /* Increase font-size */
   padding: 12px 20px 12px 40px; /* Add some padding */
-  margin: 5em 10% 12px 10%;
+  margin: 12px 10%;
   border: 1px solid #ddd; /* Add a grey border */
-
+  height: 2em;
 }
 
 .filters {
-  padding: 1em 20vh 1em 20vh;
+  padding: 12px 40px 12px 40px;
   width: 100%;
   display: flex;
   align-items: flex-start;
@@ -296,11 +310,11 @@ img {
 }
 
 .filterNone,
-.filterHandicap,
-.filterGender,
-.filterSingle {
+.filterCulture,
+.filterHealth,
+.filterChildren {
   width: 100%;
-  height: 5em;
+  height: auto;
   background-color: #ffffff; 
   color: rgb(41, 41, 41);
   /* border: 0.5px solid black; */
@@ -316,3 +330,99 @@ img {
 .filters button.active {
   background-color: #ccc;
 }
+
+.cellDiv {
+  overflow-y: scroll;
+  max-height: 5em;
+}
+
+
+.searchTable {
+  position: absolute;
+  top: 18em;
+  left: 2em;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 70vh;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.87);
+  padding: 3em 1em;
+  color: black;
+  overflow-y: auto;
+}
+
+.spaceTable {
+  width: 85%;
+  margin: 0em 40px 3em 40px;
+  border-collapse: collapse;
+  table-layout:fixed;
+  font-size: 14px;
+}
+
+tr {
+border: 1px solid #ddd; 
+}
+
+td {
+  padding: 1em;
+}
+
+th {
+  padding: 2em 5%;
+  background-color:#f1f1f1;
+  color: hsl(30, 100%, 29%);
+}
+
+.future {
+  width: 75%;
+}
+
+ /* unvisited link */
+ a:link {
+  text-decoration: none;
+  }
+
+  /* visited link */
+  a:visited {
+  text-decoration: none;
+  }
+
+  /* mouse over link */
+  /* a:hover {
+  text-decoration: underline wavy;
+  text-decoration-color: blue;
+  } */
+
+  /* selected link */
+  a:active {
+  text-decoration: underline;
+  }
+
+  .suggestionBox{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 20%;
+    margin: 2em;
+    background: #f1f1f1;
+    padding: 1.5em;
+    color:black;
+    margin-bottom: 2em;
+    
+  }
+  .suggestionName{
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 1em;
+  }
+  .suggestionDescription{
+    font-size: 18px;
+    color: darkslategrey;
+  }
+
+  .suggestionScore {
+    width: inherit;
+    float: right;
+    text-align: right;
+  }
