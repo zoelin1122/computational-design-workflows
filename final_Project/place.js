@@ -11,6 +11,7 @@ const filterGender = document.getElementsByClassName("filterGender")
 const filterSingle = document.getElementsByClassName("filterSingle")
 const filterNone = document.getElementsByClassName("filterNone")
 var button = document.querySelector("button");
+console.log(map)
 
 var lngLat = Number;
 
@@ -58,6 +59,14 @@ let user1 = {
   name: 'Zoe Lin',
   suggestions: null
 }
+
+let user2 = {
+  location: 'APT 13, 139 Eldridge, NY, NY, 10002',
+  thisLngLat: [-73.9917492, 40.7192191],
+  name: 'Sabrina Krebs',
+  suggestions: null
+}
+
 
 let place1 = {
   location: "139 Eldridge",
@@ -130,7 +139,7 @@ const addNewSuggestion = (e) => {
     culture: newCultureBool,
     health: newHealthBool,
     children: newChildrenBool,
-    score: 1,
+    score: Number(1),
 	}
   
   // pass object into display function
@@ -189,21 +198,41 @@ function printSuggestion(suggestion) {
   let suggestionBox = document.createElement("div")
   let suggestionName = document.createElement("h2")
   let suggestionDescription = document.createElement("p")
-  let suggestionScore = document.createElement("div")
-  suggestionBox.classList.add("suggestionBox")
+  let suggestionScore = document.createElement("section")
+  let scoreContainer = document.createElement("div")
+  let commentAdd = document.createElement("textarea")
+  let button = document.createElement("button")
+  let commentArea = document.createElement("div")
+  let commentSections = document.createElement("div")
+  commentAdd.id = "newComment"
+  commentAdd.placeholder = "Add comments…"
+  button.id = "addComments"
+  commentArea.id = "commentArea"
+  button.innerText = "Add Comment"
+  commentSections.classList.add("commentSections")
+  scoreContainer.classList.add("scoreContainer")
+  suggestionBox.id="suggestionBox"
   suggestionName.classList.add("suggestionName")
   suggestionDescription.classList.add("suggestionDescription")
   suggestionScore.classList.add("suggestionScore")
+
 
   console.log(suggestion.name)
   console.log(suggestion.description)
   suggestionName.innerText = suggestion.name
   suggestionDescription.innerText = suggestion.description
-  suggestionScore.innerText = "+" + suggestion.score
+  suggestionScore.innerText = "Like"
 
   suggestionBox.appendChild(suggestionName)
   suggestionBox.appendChild(suggestionDescription)
-  suggestionBox.appendChild(suggestionScore)
+  scoreContainer.appendChild(suggestionScore)
+  suggestionBox.appendChild(scoreContainer)
+  commentSections.appendChild(commentArea)
+  commentSections.appendChild(commentAdd)
+  commentSections.appendChild(button)
+  suggestionBox.appendChild(commentSections)
+
+
 
   display.appendChild(suggestionBox)
 
@@ -245,9 +274,9 @@ function pageLoadFn(){
 // MAP RELATED JS
 //-----------------
 // create an instance of NavigationControl
-let navigation = new mapboxgl.NavigationControl({
-    showCompass: false
-})
+// let navigation = new mapboxgl.NavigationControl({
+//     showCompass: false
+// })
 
 // add the navigation to your map
 // map.addControl(navigation, 'top-right')
@@ -432,6 +461,15 @@ function initAutocomplete() {
 // Events
 //----------------------------
 
+document.querySelectorAll('le').forEach(e => e.addEventListener("click", function() {
+  console.log(this)
+  this.className = this.className.replace(" active", "");
+  evt.currentTarget.className += " active";
+}))
+
+
+
+
 document.querySelectorAll('tr')
 .forEach(e => e.addEventListener("click", function() {
     // Here, `this` refers to the element the event was hooked on
@@ -444,4 +482,119 @@ form.addEventListener("submit", addNewSuggestion);
 // filterHandicap.addEventListener("click", filter('handicapTrue'));
 // filterSingle.addEventListener("click", filter('singleStallTrue'));
 // filterGender.addEventListener("click", filter('genderNeutralTrue'));
+
+
+
+
+//Comment Section
+// const commentContainer = document.getElementById('commentArea');
+document.querySelectorAll('[id=addComments]')
+.forEach(e => e.addEventListener("click", function(e) {
+   addComment(e, this.parentElement);
+}));
+
+function addComment(ev, parent) {
+    let textBox = document.createElement('div');
+    textBox.classList.add("comment")
+    // let replyButton = document.createElement('button');
+    // replyButton.className = 'reply';
+    // replyButton.innerHTML = 'Reply';
+    // remember if adding back to add to wrapDiv
+    let likeButton = document.createElement('button');
+    likeButton.innerHTML = 'Like';
+    likeButton.className = 'likeComment';
+    let deleteButton = document.createElement('button');
+    deleteButton.innerHTML = 'Delete';
+    deleteButton.className = 'deleteComment';
+    let wrapDiv = document.createElement('div');
+    wrapDiv.className = 'wrapper';
+    let commentText = parent.querySelector('#newComment').value;
+    parent.querySelector('#newComment').value = '';
+    textBox.innerHTML = commentText;
+    wrapDiv.append(textBox, likeButton, deleteButton);
+    console.log(wrapDiv)
+    parent.querySelector("#commentArea").appendChild(wrapDiv);
+    
+}
+
+function hasClass(elem, className) {
+  return elem.className.split(' ').indexOf(className) > -1;
+}
+
+document.querySelectorAll('[id=commentArea]')
+.forEach(e => e.addEventListener("click", function(e) {
+  // if (hasClass(e.target, 'reply')) {
+  //     const parentDiv = e.target.parentElement;
+  //     const wrapDiv = document.createElement('div');
+  //     wrapDiv.style.marginLeft = (Number.parseInt(parentDiv.style.marginLeft) + 15).toString() + 'px';
+  //     wrapDiv.className = 'wrapper';
+  //     const textArea = document.createElement('textarea');
+  //     textArea.style.marginRight = '20px';
+  //     const addButton = document.createElement('button');
+  //     addButton.className = 'addReply';
+  //     addButton.innerHTML = 'Add';
+  //     const cancelButton = document.createElement('button');
+  //     cancelButton.innerHTML = 'Cancel';
+  //     cancelButton.className='cancelReply';
+  //     wrapDiv.append(textArea, addButton, cancelButton);
+  //     parentDiv.appendChild(wrapDiv);
+  // } else 
+  if  (hasClass(e.target, 'addReply')) {
+      addComment(e);
+  } else if(hasClass(e.target, 'likeComment')) {
+       const likeBtnValue = e.target.innerHTML;
+       e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseFloat(likeBtnValue) + 0.9 : 0.9;
+  } else if(hasClass(e.target, 'cancelReply')) {
+      e.target.parentElement.innerHTML = '';
+  } else if(hasClass(e.target, 'deleteComment')) {
+      e.target.parentElement.remove();
+  }
+}));
+
+
+document.querySelectorAll('[id=suggestionBox]')
+.forEach(e => e.addEventListener("click", function(e) {
+  if(hasClass(e.target, 'suggestionScore')) {
+  let likeBtnValue = e.target.innerHTML
+   e.target.innerHTML = likeBtnValue !== 'Like' ? Number.parseFloat(likeBtnValue) + .9 : 0.9;
+  console.log("yes")
+}
+}));
+
+// function addComment(ev) {
+//   let commentText, wrapDiv;
+//   const textBox = document.createElement('div');
+//   const replyButton = document.createElement('button');
+//   replyButton.className = 'reply';
+//   replyButton.innerHTML = 'Reply';
+//   const likeButton = document.createElement('button');
+//   likeButton.innerHTML = 'Like';
+//   likeButton.className = 'likeComment';
+//   const deleteButton = document.createElement('button');
+//   deleteButton.innerHTML = 'Delete';
+//   deleteButton.className = 'deleteComment';
+//   if(hasClass(ev.target.parentElement, 'container')) {
+//       const wrapDiv = document.createElement('div');
+//       wrapDiv.className = 'wrapper';
+//       wrapDiv.style.marginLeft = 0;
+//       commentText = document.getElementById('comment').value;
+//       document.getElementById('comment').value = '';
+//       textBox.innerHTML = commentText;
+//       wrapDiv.append(textBox, replyButton, likeButton, deleteButton);
+//       commentContainer.appendChild(wrapDiv);
+//   } else {
+//       wrapDiv = ev.target.parentElement;
+//       commentText = ev.target.parentElement.firstElementChild.value;
+//       textBox.innerHTML = commentText;
+//       wrapDiv.innerHTML = '';
+//       wrapDiv.append(textBox, replyButton, likeButton, deleteButton);
+//   }
+// }
+
+let dist_lng = Math.abs(user2.thisLngLat[0]-map._markers[0]._lngLat.lng)
+let dist_lat = Math.abs(user2.thisLngLat[1]-map._markers[0]._lngLat.lat)
+let dist_score = Math.sqrt((Math.pow(dist_lng, 2)+ Math.pow(dist_lat, 2)))
+console.log(user2.thisLngLat[0])
+console.log(map._markers[0]._lngLat.lng)
+console.log(dist_score)
 

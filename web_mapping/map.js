@@ -13,31 +13,32 @@ map.on('load', function () {
     //     console.log(mapLayers[i].id);
         
     // }
-    map.addLayer({
-        'id': 'citibikeData',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/citiGeo.geojson'
-        },
-        'paint': {
-            'circle-color': ['interpolate', ['linear'], ['get', 'difference'],
-                0, '#ffffff',
-                50, '#ffba31',
-                100, '#ff4400',
-            ],
-            'circle-stroke-color': '#4d4d4d',
-            'circle-stroke-width': 0.5,
-            'circle-radius': ['interpolate', ['exponential', 2], ['zoom'],
-                10.5, ['interpolate', ['linear'], ['get', 'difference'],
-                    0, 1,
-                    100, 5],
-                15, ['interpolate', ['linear'], ['get', 'difference'],
-                    0, 5,
-                    100, 80]
-            ]
-        }
-    }, 'road-label-simple');
+    // map.addLayer({
+    //     'id': 'citibikeData',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/citiGeo.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': ['interpolate', ['linear'], ['get', 'difference'],
+    //             0, '#ffffff',
+    //             50, '#ffba31',
+    //             100, '#ff4400',
+    //         ],
+    //         'circle-stroke-color': '#4d4d4d',
+    //         'circle-stroke-width': 0.5,
+    //         'circle-radius': ['interpolate', ['exponential', 2], ['zoom'],
+    //             10.5, ['interpolate', ['linear'], ['get', 'difference'],
+    //                 0, 1,
+    //                 100, 5],
+    //             15, ['interpolate', ['linear'], ['get', 'difference'],
+    //                 0, 5,
+    //                 100, 80]
+    //         ]
+    //     }
+    // }, 'road-label-simple');
+    
     map.addLayer({
         'id': 'mhhi',
         'type': 'fill',
@@ -55,24 +56,70 @@ map.on('load', function () {
                 150000, '#00a2ca'],
             'fill-opacity': ['case', ['==', ['get', 'MHHI'], null], 0, 0.65]
         }
-    }, 'citibikeData')
+    },);
+
+    map.addLayer({
+        'id': 'emptylots',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/emptyLots.geojson'
+        },
+        'paint': {
+            'circle-color': '#00FF00',
+            'circle-stroke-color': '#00FF00',
+            'circle-stroke-width': 0.5,
+            'circle-radius': 3
+        }
+    },)
+
+    map.addLayer({
+        'id': 'emptylotsinuse',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/emptyLotsInUse.geojson'
+        },
+        'paint': {
+            'circle-color': '#ff0000',
+            'circle-stroke-color': '#ff0000',
+            'circle-stroke-width': 0.5,
+            'circle-radius': 3
+        }
+    },)
+
+    // map.addLayer({
+    //     'id': 'vacantRetail',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/Storefronts_Vancancy.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': '#ff7f50',
+    //         // 'circle-stroke-color': '#4d4d4d',
+    //         // 'circle-stroke-width': 0.5,
+    //         'circle-radius': 3
+    //     }
+    // },)
+    
 });
 
-map.on('click', 'citibikeData', function(e){
-    let stationID = e.features[0].properties["start station id"];
-    let countweek1 = e.features[0].properties["countWeek1"];
-    let countweek4 = e.features[0].properties["countWeek4"];
-    let difference = e.features[0].properties["difference"];
+// map.on('click', 'citibikeData', function(e){
+//     let stationID = e.features[0].properties["start station id"];
+//     let countweek1 = e.features[0].properties["countWeek1"];
+//     let countweek4 = e.features[0].properties["countWeek4"];
+//     let difference = e.features[0].properties["difference"];
 
-    new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(stationID + '<br>' + difference + '%' + '<br>' + countweek1 + '<br>' + countweek4)
-        .addTo(map);
-});
+//     new mapboxgl.Popup()
+//         .setLngLat(e.lngLat)
+//         .setHTML(stationID + '<br>' + difference + '%' + '<br>' + countweek1 + '<br>' + countweek4)
+//         .addTo(map);
+// });
 
-map.on('mouseenter', 'citibikeData', function(){
-    map.getCanvas().style.cursor = 'pointer';
-});
-map.on('mouseleave', 'citibikeData', function(){
-    map.getCanvas().style.cursor = '';
-});
+// map.on('mouseenter', 'citibikeData', function(){
+//     map.getCanvas().style.cursor = 'pointer';
+// });
+// map.on('mouseleave', 'citibikeData', function(){
+//     map.getCanvas().style.cursor = '';
+// });

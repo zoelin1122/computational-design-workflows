@@ -43,13 +43,6 @@ function composePoetry(m, pl, pp, t){
     let poem = material + " " + place + " " + person + " " +  thing
     return poem
 }
-// function printPoetry(){
-//     poem = composePoetry(materials, places, people, things)
-//     let paper = document.querySelector('div')
-//     let paragraph = document.createElement('p')
-//     paragraph.innerText = poem
-//     paper.append(paragraph)
-// }
 
 const button = document.querySelector('.poem-generator')
 button.addEventListener('click', function(){
@@ -59,3 +52,11 @@ button.addEventListener('click', function(){
     paragraph.innerText = poem
     paper.append(paragraph)
 })
+// function printPoetry(){
+//     poem = composePoetry(materials, places, people, things)
+//     let paper = document.querySelector('div')
+//     let paragraph = document.createElement('p')
+//     paragraph.innerText = poem
+//     paper.append(paragraph)
+// }
+
