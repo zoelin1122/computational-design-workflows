@@ -488,3 +488,41 @@ th {
     color: white;
 
   }
+
+ .essay {
+    margin: 5% 5% 0 35%;
+    font-size: 22px;
+  }
+
+  
+  p.essay {
+    /* padding: 2em 2em 0 2em; */
+    text-indent:40px;
+    line-height: 2em;
+    margin: 1em 5% 0 40%;
+    font-size: 18px;
+
+  }
+  .essayTitle{
+    margin: 50px 50px 0 0%;
+    text-align: left;
+    font-size: 40px;
+  }
+
+  .essaySubTitle{
+    margin: 20px 50px 200px 0%;
+    text-align: left;
+    font-size: 18px;
+  }
+
+  figcaption{
+    text-align: right;
+    font-style: italic;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-right: 40px;
+  }
+
+  figure{
+    margin: 3em 5em;
+  }
