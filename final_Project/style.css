@@ -490,7 +490,7 @@ th {
   }
 
  .essay {
-    margin: 5% 5% 0 35%;
+    margin: 5% 5% 0 30%;
     font-size: 22px;
   }
 
@@ -499,7 +499,7 @@ th {
     /* padding: 2em 2em 0 2em; */
     text-indent:40px;
     line-height: 2em;
-    margin: 1em 5% 0 40%;
+    margin: 1em 5% 0 35%;
     font-size: 18px;
 
   }
