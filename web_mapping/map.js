@@ -58,50 +58,53 @@ map.on('load', function () {
         }
     },);
 
-    map.addLayer({
-        'id': 'emptylots',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/emptyLots.geojson'
-        },
-        'paint': {
-            'circle-color': '#00FF00',
-            'circle-stroke-color': '#00FF00',
-            'circle-stroke-width': 0.5,
-            'circle-radius': 3
-        }
-    },)
-
-    map.addLayer({
-        'id': 'emptylotsinuse',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/emptyLotsInUse.geojson'
-        },
-        'paint': {
-            'circle-color': '#ff0000',
-            'circle-stroke-color': '#ff0000',
-            'circle-stroke-width': 0.5,
-            'circle-radius': 3
-        }
-    },)
-
     // map.addLayer({
-    //     'id': 'vacantRetail',
+    //     'id': 'emptylots',
     //     'type': 'circle',
     //     'source': {
     //         'type': 'geojson',
-    //         'data': 'data/Storefronts_Vancancy.geojson'
+    //         'data': 'data/emptyLots.geojson'
     //     },
     //     'paint': {
-    //         'circle-color': '#ff7f50',
-    //         // 'circle-stroke-color': '#4d4d4d',
-    //         // 'circle-stroke-width': 0.5,
+    //         'circle-color': '#00FF00',
+    //         'circle-stroke-color': '#00FF00',
+    //         'circle-stroke-width': 0.5,
     //         'circle-radius': 3
     //     }
     // },)
+
+    // map.addLayer({
+    //     'id': 'emptylotsinuse',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/emptyLotsInUse.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': '#ff0000',
+    //         'circle-stroke-color': '#ff0000',
+    //         'circle-stroke-width': 0.5,
+    //         'circle-radius': 3
+    //     }
+    // },)
+
+    map.addLayer({
+        'id': 'vacantRetail',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/Storefronts_Vancancy.geojson'
+        },
+        'paint': {
+            'circle-color': '#ff7f50',
+            // 'circle-stroke-color': '#4d4d4d',
+            // 'circle-stroke-width': 0.5,
+            'circle-radius': ['interpolate', ['exponential', 3], ['zoom'],
+                5,
+                3
+            ]
+        }
+    },)
     
 });
 
@@ -123,3 +126,44 @@ map.on('load', function () {
 // map.on('mouseleave', 'citibikeData', function(){
 //     map.getCanvas().style.cursor = '';
 // });
+
+map.on('click', function(event) {
+
+    let lng = event.lngLat.lng
+    let lat = event.lngLat.lat
+    
+
+    console.log("clicked:", lng, lat)
+
+    // document.getElementById('info').innerHTML = lng.toFixed(5) + "," + lat.toFixed(5)
+    let marker = new mapboxgl.Marker({ "color": "#b40219" })
+    marker.setLngLat(event.lngLat).addTo(map)
+    locationInput.value=`${lng}, ${lat}`
+    // marker.remove();
+    // lngLat = [lng, lat];
+})
+
+let navigation = new mapboxgl.NavigationControl({
+    showCompass: false
+})
+
+// add the navigation to your map
+map.addControl(navigation, 'top-right')
+
+// create an instance of ScaleControl
+let scale = new mapboxgl.ScaleControl({
+    maxWidth: 80,
+    unit: 'imperial'
+})
+
+map.addControl(scale, 'bottom-right')
+
+let geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true,
+    showUserLocation: true,
+    fitBoundsOptions: {
+    }
+})
