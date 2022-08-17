@@ -58,35 +58,35 @@ map.on('load', function () {
         }
     },);
 
-    // map.addLayer({
-    //     'id': 'emptylots',
-    //     'type': 'circle',
-    //     'source': {
-    //         'type': 'geojson',
-    //         'data': 'data/emptyLots.geojson'
-    //     },
-    //     'paint': {
-    //         'circle-color': '#00FF00',
-    //         'circle-stroke-color': '#00FF00',
-    //         'circle-stroke-width': 0.5,
-    //         'circle-radius': 3
-    //     }
-    // },)
+    map.addLayer({
+        'id': 'emptylots',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/emptyLots.geojson'
+        },
+        'paint': {
+            'circle-color': '#00FF00',
+            'circle-stroke-color': '#00FF00',
+            'circle-stroke-width': 0.5,
+            'circle-radius': 3
+        }
+    },)
 
-    // map.addLayer({
-    //     'id': 'emptylotsinuse',
-    //     'type': 'circle',
-    //     'source': {
-    //         'type': 'geojson',
-    //         'data': 'data/emptyLotsInUse.geojson'
-    //     },
-    //     'paint': {
-    //         'circle-color': '#ff0000',
-    //         'circle-stroke-color': '#ff0000',
-    //         'circle-stroke-width': 0.5,
-    //         'circle-radius': 3
-    //     }
-    // },)
+    map.addLayer({
+        'id': 'emptylotsinuse',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/emptyLotsInUse.geojson'
+        },
+        'paint': {
+            'circle-color': '#ff0000',
+            'circle-stroke-color': '#ff0000',
+            'circle-stroke-width': 0.5,
+            'circle-radius': 3
+        }
+    },)
 
     map.addLayer({
         'id': 'vacantRetail',
